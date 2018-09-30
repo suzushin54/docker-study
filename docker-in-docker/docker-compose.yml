@@ -1,4 +1,4 @@
-version "3"
+version: "3"
 services:
   registry:
     container_name: registry
@@ -10,14 +10,14 @@ services:
 
   manager:
     container_name: manager
-    image: docker-:18.05.0-ce-dind
+    image: docker:18.05.0-ce-dind
     privileged: true
     tty: true
     ports:
       - 8000:80
       - 9000:9000
     depends_on:
-      - registry
+      - registry 
     expose:
       - 3375
     command: "--insecure-registry registry:5000"
@@ -31,11 +31,11 @@ services:
     tty: true
     depends_on:
       - manager
-      - registry
+      - registry 
     expose:
       - 7946
-      - 7946:udp
-      - 4789:udp
+      - 7946/udp
+      - 4789/udp
     command: "--insecure-registry registry:5000"
 
   worker02:
@@ -45,11 +45,11 @@ services:
     tty: true
     depends_on:
       - manager
-      - registry
+      - registry 
     expose:
       - 7946
-      - 7946:udp
-      - 4789:udp
+      - 7946/udp
+      - 4789/udp
     command: "--insecure-registry registry:5000"
 
   worker03:
@@ -59,9 +59,9 @@ services:
     tty: true
     depends_on:
       - manager
-      - registry
+      - registry 
     expose:
       - 7946
-      - 7946:udp
-      - 4789:udp
+      - 7946/udp
+      - 4789/udp
     command: "--insecure-registry registry:5000"
