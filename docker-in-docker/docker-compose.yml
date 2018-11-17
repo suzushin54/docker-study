@@ -1,5 +1,8 @@
 version: "3"
 services:
+  # Dockerレジストリとなるコンテナ。manager, workerから参照される
+  # dindでは外側でビルドされたイメージをファイルシステム経由で利用できないので、
+  # registryにPushしておき、取得できるようにする。通常はDocker Hub等を使う。
   registry:
     container_name: registry
     image: registry:2.6
@@ -7,7 +10,7 @@ services:
       - 5000:5000
     volumes:
       - "./registry-data:/var/lib/registry"
-
+  # Swarmクラスタ全体を制御する
   manager:
     container_name: manager
     image: docker:18.05.0-ce-dind
@@ -20,6 +23,7 @@ services:
       - registry 
     expose:
       - 3375
+    # Dockerレジストリは通常https前提だがhttpでのアクセスを許可する
     command: "--insecure-registry registry:5000"
     volumes:
       - "./stack:/stack"
