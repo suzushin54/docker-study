@@ -20,7 +20,7 @@ services:
       - 8000:80
       - 9000:9000
     depends_on:
-      - registry 
+      - registry
     expose:
       - 3375
     # Dockerレジストリは通常https前提だがhttpでのアクセスを許可する
@@ -35,7 +35,7 @@ services:
     tty: true
     depends_on:
       - manager
-      - registry 
+      - registry
     expose:
       - 7946
       - 7946/udp
@@ -49,7 +49,7 @@ services:
     tty: true
     depends_on:
       - manager
-      - registry 
+      - registry
     expose:
       - 7946
       - 7946/udp
@@ -63,7 +63,7 @@ services:
     tty: true
     depends_on:
       - manager
-      - registry 
+      - registry
     expose:
       - 7946
       - 7946/udp
