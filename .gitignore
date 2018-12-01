@@ -35,3 +35,6 @@ jenkins.install.*
 jenkins_home/
 
 .env
+
+# registry-data
+registry-data/
