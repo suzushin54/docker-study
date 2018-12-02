@@ -16,7 +16,7 @@ services:
       KEEPALIVE_TIMEOUT: 65
       GZIP: "on"
       BACKEND_HOST: todo_frontend_web:3000
-      BACKEND_MAX_FAILES: 3
+      BACKEND_MAX_FAILS: 3
       BACKEND_FAIL_TIMEOUT: 10s
       SERVER_PORT: 80
       SERVER_NAME: localhost
