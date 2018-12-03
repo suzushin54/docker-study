@@ -10,7 +10,7 @@ services:
     depends_on:
       - api
     environment:
-      WOKER_PROCESSES: 2
+      WORKER_PROCESSES: 2
       WORKER_CONNECTIONS: 1024
       KEEPALIVE_TIMEOUT: 65
       GZIP: "on"
@@ -27,10 +27,12 @@ services:
     image: registry:5000/ch04/todoapi:latest
     deploy:
       replicas: 2
+      placement:
+        constraints: [node.role != manager]
     environment:
       TODO_BIND: ":8080"
-      TODO_MASTER_URL: "gihyo:gihyo@tcp(todomysql_master:3306)/tododb?parseTime=true"
-      TODO_SLAVE_URL: "gihyo:gihyo@tcp(todomysql_slave:3306)/tododb?parseTime=true"
+      TODO_MASTER_URL: "gihyo:gihyo@tcp(todo_mysql_master:3306)/tododb?parseTime=true"
+      TODO_SLAVE_URL: "gihyo:gihyo@tcp(todo_mysql_slave:3306)/tododb?parseTime=true"
     networks:
       - todoapp
 
