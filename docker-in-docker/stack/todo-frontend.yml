@@ -27,7 +27,7 @@ services:
       - assets:/var/www/_nuxt
 
   web:
-    image: registry:5000/ch04/todoapi:latest
+    image: registry:5000/ch04/todoweb:latest
     deploy:
       replicas: 1
       placement:
