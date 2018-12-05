@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment # 定義上はReplicaSetと大差ないが、世代管理が可能になる
+metadata:
+  name: echo
+  labels:
+    app: echo
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: echo
+  template:
+    metadata:
+      labels:
+        app: echo
+    spec: # リソースを定義する属性
+      containers:
+      - name: nginx
+        image: gihyodocker/nginx-proxy:latest
+        env:
+        - name: BACKEND_HOST
+          value: localhost:8080
+        ports: # DockerfileのEXPOSEで定義する場合は不要
+        - containerPort: 80
+      - name: echo
+        image: gihyodocker/echo:latest
+        ports:
+        - containerPort: 8080
