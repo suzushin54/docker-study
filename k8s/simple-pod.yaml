@@ -9,7 +9,7 @@ spec: # リソースを定義する属性
     env:
     - name: BACKEND_HOST
       value: localhost:8080
-    ports:
+    ports: # DockerfileのEXPOSEで定義する場合は不要
     - containerPort: 80
   - name: echo
     image: gihyodocker/echo:latest
