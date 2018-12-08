@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: ReplicaSet # 同一Podを複数実行できる
+metadata:
+  name: echo-spring
+  labels:
+    app: echo
+    release: spring
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: echo
+      release: spring
+  template:
+    metadata:
+      labels:
+        app: echo
+        release: spring
+    spec: # リソースを定義する属性
+      containers:
+      - name: nginx
+        image: gihyodocker/nginx:latest
+        env:
+        - name: BACKEND_HOST
+          value: localhost:8080
+        ports: # DockerfileのEXPOSEで定義する場合は不要
+        - containerPort: 80
+      - name: echo
+        image: gihyodocker/echo:latest
+        ports:
+        - containerPort: 8080
+
+---
+
+apiVersion: apps/v1
+kind: ReplicaSet # 同一Podを複数実行できる
+metadata:
+  name: echo-summer
+  labels:
+    app: echo
+    release: summer
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: echo
+      release: summer
+  template:
+    metadata:
+      labels:
+        app: echo
+        release: summer
+    spec: # リソースを定義する属性
+      containers:
+      - name: nginx
+        image: gihyodocker/nginx:latest
+        env:
+        - name: BACKEND_HOST
+          value: localhost:8080
+        ports: # DockerfileのEXPOSEで定義する場合は不要
+        - containerPort: 80
+      - name: echo
+        image: gihyodocker/echo:latest
+        ports:
+        - containerPort: 8080
