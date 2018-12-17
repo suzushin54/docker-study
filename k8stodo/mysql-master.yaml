@@ -50,6 +50,9 @@ spec:
           value: "gihyo"
         - name: MYSQL_MASTER
           value: "true"
+        volumeMounts:
+        - name: mysql-data
+          mountPath: /var/lib/mysql
   volumeClaimTemplates: # PersistentVolumeClaimをPod毎に自動生成するためのテンプレート
   - metadata:
       name: mysql-data
