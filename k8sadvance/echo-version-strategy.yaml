@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: echo-version-strategy
+  labels:
+    app: echo-version
+spec:
+# strategyを設定することでRollingUpdateの挙動を制御できる
+  replicas: 4
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 50% # 同時に削除可能な数. %による指定も可能
+      maxSurge: 1 # 新しく作るPodの数
+  selector:
+    matchLabels:
+      app: echo-version 
+  template:
+    metadata:
+      labels:
+        app: echo-version 
+    spec:
+      containers:
+      - name: echo-version 
+        image: gihyodocker/echo-version:0.1.0 
+        ports:
+        - containerPort: 8080
